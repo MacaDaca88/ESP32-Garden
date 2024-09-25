@@ -27,29 +27,23 @@ int button1State = 0;
 int button2State = 0;
 int button3State = 0;
 
-bool Charging = false;
 bool Home = false;
-bool Testing = false;
 bool Wifi = false;
 
 
 enum MenuState {
   HOME,
-  CHARGE,
-  DRAIN,
   WIFI
 };
 
-MenuState currentMenu = DRAIN;
+MenuState currentMenu = HOME;
 
 int Time = 0;
 int oldTime = 0;
 int counter;
 #include "wifiState.h"
 #include "menu.h"
-#include "charge.h"
-#include "Discharge.h"
-#include "backdrop.h"
+
 
 void setup() {
   u8g2.clearBuffer();
@@ -90,10 +84,6 @@ void loop() {
   button3 = digitalRead(BUTTON3);
 
 
-  Serial.println(batt3Value);
-  Serial.print("Battery 4 = ");
-  Serial.println(batt4);
-
   if (button1 != button1State) {
     if (button1State == LOW) {
       counter++;
@@ -101,14 +91,8 @@ void loop() {
       Serial.println(counter);
 
       switch (currentMenu) {
-        case DRAIN:
-          currentMenu = HOME;
-          break;
         case HOME:
-          currentMenu = CHARGE;
-          break;
-        case CHARGE:
-          currentMenu = DRAIN;
+          currentMenu = HOME;
           break;
         case WIFI:
           currentMenu = WIFI;
@@ -122,16 +106,6 @@ void loop() {
       home();
       Home = true;
       break;
-
-    case CHARGE:
-      readCharge();
-      Charging = true;
-      break;
-
-    case DRAIN:
-      readDrain();
-      Testing = true;
-      break;
     case WIFI:
       State();
       break;
@@ -140,7 +114,6 @@ void loop() {
 
   if (button2 != button2State) {
     if (button2State == LOW) {
-      ScreenSaver();
     }
   }
   button2State = button2;

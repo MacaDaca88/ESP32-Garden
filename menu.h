@@ -13,7 +13,7 @@ void home() {
 
   u8g2.setDrawColor(1);
   u8g2.setCursor(10, 10);
-  u8g2.print("18650 test/charger");
+  u8g2.print("Auto Garden");
 
   u8g2.setFont(u8g2_font_ncenB08_tr);
 
