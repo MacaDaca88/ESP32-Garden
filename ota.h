@@ -20,7 +20,7 @@ void OTAinit() {
   // ArduinoOTA.setPort(3232);
 
   // Hostname defaults to esp3232-[MAC]
-   ArduinoOTA.setHostname("ESP-Garden");
+  ArduinoOTA.setHostname("ESP-Garden");
 
   // No authentication by default
   // ArduinoOTA.setPassword("admin");
@@ -50,12 +50,11 @@ void OTAinit() {
       u8g2.setDrawColor(1);
       u8g2.setCursor(20, 20);
       u8g2.printf("Progress: %u%%\r", (progress / (total / 100)));
-      int progressPX= map(progress, 0, 100, 0, 127);
-      int h;
-      int w;
-      u8g2.drawBox(0, 50, 0, progressPX);
+      int progressPX = progress / (total / 100);
+      u8g2.drawBox(15, 50, progressPX,64);
       u8g2.setCursor(20, 40);
       u8g2.print("Be Patient Dick");
+
       u8g2.sendBuffer();
     })
     .onError([](ota_error_t error) {

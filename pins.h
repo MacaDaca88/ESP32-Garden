@@ -28,27 +28,33 @@
 #ifdef UNO
 #warning "no A7 u dumb dumb"
 #endif
-
+///////////////////////////////////////////////ESP PINOUT///////////////////////////////////
 #ifdef ESP32
-#define BATT1 32
-#define BATT2 33
-#define BATT3 12
-#define BATT4 14
 
-#define DISCHARGE 13
+#define SW1 26
+#define SW2 25
+#define SW3 33
+#define SW4 32
+#define SW5 35
+#define SW6 34
 
-#define LED 2
+#define LED 26
 
 #define BUTTON1 15
 #define BUTTON2 0
 #define BUTTON3 4
 
-#define DHTPIN 16     // Digital pin connected to the DHT sensor 
+#define DHTPIN 2  // Digital pin connected to the DHT sensor
 
-#define DHTTYPE    DHT11     // DHT 11
+#define DHTTYPE DHT11  // DHT 11
 
-
-#define RES 27    // res
+/*SPI	
+MOSI GPIO 23	// data
+MISO GPIO 19	// dc
+SCLK GPIO 18	// clock
+CS GPIO 5     // cs
+*/
+#define RES 27  // res
 
 #endif
 #endif

@@ -1,4 +1,4 @@
-// controls garden automaticlly 
+// controls garden automaticlly
 #include <WiFi.h>
 
 #include <Arduino.h>
@@ -9,7 +9,6 @@
 #include <DHT_U.h>
 //#define UNO
 #include "pins.h"
-
 U8G2_SSD1305_128X64_ADAFRUIT_F_4W_SW_SPI u8g2(U8G2_R2, /* clock=*/SCK, /* data=*/MOSI, /* cs=*/SS, /* dc=*/MISO, /* reset=*/RES);
 
 ///////////////////////OTA//////////////////////////
@@ -41,8 +40,10 @@ MenuState currentMenu = HOME;
 int Time = 0;
 int oldTime = 0;
 int counter;
+
 #include "wifiState.h"
 #include "menu.h"
+
 
 
 void setup() {
@@ -56,19 +57,21 @@ void setup() {
   pinMode(BUTTON2, INPUT_PULLUP);
   pinMode(BUTTON3, INPUT_PULLUP);
 
-  pinMode(BATT1, INPUT);
-  pinMode(BATT2, INPUT);
-  pinMode(BATT3, INPUT);
-  pinMode(BATT4, INPUT);
+  pinMode(SW1, INPUT);
+  pinMode(SW2, INPUT);
+  pinMode(SW3, INPUT);
+  pinMode(SW4, INPUT);
+  pinMode(SW5, INPUT);
+  pinMode(SW6, INPUT);
 
   pinMode(LED, OUTPUT);
 
   u8g2.begin();
-  Serial.print("u8g2 BOOTING.");
+  Serial.print("BOOTING.");
 
   u8g2.setCursor(10, 10);
   u8g2.setFont(u8g2_font_ncenB08_tr);
-  u8g2.drawStr(0, 10, "u8g2 BOOTING.");
+  u8g2.drawStr(0, 10, " BOOTING. ");
   u8g2.print(". ");
   u8g2.sendBuffer();
   delay(500);
@@ -84,32 +87,21 @@ void loop() {
   button3 = digitalRead(BUTTON3);
 
 
+  home();
+  Home = true;
+
   if (button1 != button1State) {
     if (button1State == LOW) {
       counter++;
       Serial.print("counter");
       Serial.println(counter);
-
-      switch (currentMenu) {
-        case HOME:
-          currentMenu = HOME;
-          break;
-        case WIFI:
-          currentMenu = WIFI;
-          break;
-      }
+      u8g2.setCursor(0, 50);
+      u8g2.print("C = ");
+      u8g2.print(counter);
+      u8g2.sendBuffer();
     }
   }
 
-  switch (currentMenu) {
-    case HOME:
-      home();
-      Home = true;
-      break;
-    case WIFI:
-      State();
-      break;
-  }
   button1State = button1;
 
   if (button2 != button2State) {
@@ -117,10 +109,8 @@ void loop() {
     }
   }
   button2State = button2;
-  if (button3 != button2State) {
-    if (button3State == LOW) {
-      State();
-    }
+
+
+  if (button3 == LOW) {
   }
-  button3State = button3;
 }
